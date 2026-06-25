@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+/* ── Global color tokens ── */
+:root {
+  --color-brand-primary: #FF007A;
+  --color-brand-light:   #FA6BB8;
+}
+
+/* Dark mode overrides (when .dark is on <html>) */
+.dark {
+  --color-brand-primary: #FF007A;
+  --color-brand-light:   #FA6BB8;
+}
+
+@theme {
+  --animate-fadeInUp:   fadeInUp 0.8s ease-out forwards;
+  --animate-fadeIn:     fadeIn 1s ease-out forwards;
+  --animate-float:      float 3s ease-in-out infinite;
+  --animate-pulseSlow:  pulseSlow 4s ease-in-out infinite;
+
+  /* Expose CSS vars as Tailwind theme tokens */
+  --color-brand-primary: var(--color-brand-primary);
+  --color-brand-light:   var(--color-brand-light);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-12px); }
+}
+
+@keyframes pulseSlow {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.05); }
+}
+
+/* ── Global light/dark background & text ── */
+body {
+  background-color: #ffffff;
+  color: #0f172a;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark body {
+  background-color: #ffffff;
+  color: #f1f5f9;
+}

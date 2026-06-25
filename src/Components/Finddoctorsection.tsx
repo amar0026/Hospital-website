@@ -1,0 +1,119 @@
+import { CheckCircle2, Star } from "lucide-react";
+
+// 🔁 replace with your hosted doctor image URL
+const DOCTOR_IMAGE =
+  "https://res.cloudinary.com/dquki4xol/image/upload/v1782287093/3905051fd99bb0eee983da45905acfc0a0db3e77_vdgolp.png";
+
+const DOCTORS_PREVIEW = [
+  {
+    name: "Prof. Rajiv Sinha",
+    specialty: "Paediatric Nephrologist (UK)",
+    avatar: "https://i.pravatar.cc/40?img=15",
+  },
+  {
+    name: "Dr Prabir Bhowmik",
+    specialty: "Child Specialist",
+    avatar: "https://i.pravatar.cc/40?img=33",
+  },
+];
+
+export default function FindDoctorSection() {
+  return (
+    <section className="w-full bg-white py-14 sm:py-16 md:py-20 px-5 sm:px-8 overflow-hidden">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-12 items-center">
+        {/* ---------- Left: Text content ---------- */}
+        <div className="animate-fadeInUp">
+          <p className="text-red-600 font-semibold text-sm">Find Doctor</p>
+          <h2 className="mt-2 text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight">
+            Find the right doctor according to your complaint
+          </h2>
+          <p className="mt-4 text-gray-500 text-sm sm:text-base max-w-lg">
+            Connect with top specialists at Shusrusha Multispeciality Mother
+            and Child Care Unit. Our expert doctors provide personalized care
+            for both mothers and children, ensuring comprehensive health
+            solutions. Schedule an appointment today and experience
+            compassionate, professional healthcare tailored to your family's
+            unique needs. Your health is our priority.
+          </p>
+
+          <ul className="mt-5 space-y-3">
+            <li className="flex items-start gap-2">
+              <CheckCircle2
+                size={18}
+                className="text-blue-600 mt-0.5 shrink-0"
+              />
+              <span className="text-sm text-slate-700">
+                Designed to help you find the right doctor for your unique
+                medical and personal needs.
+              </span>
+            </li>
+            <li className="flex items-start gap-2">
+              <CheckCircle2
+                size={18}
+                className="text-blue-600 mt-0.5 shrink-0"
+              />
+              <span className="text-sm text-slate-700">
+                Available 20+ doctors specialist
+              </span>
+            </li>
+          </ul>
+
+          <button className="mt-7 bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-semibold px-7 py-3 rounded-md transition-all">
+            See Doctors
+          </button>
+        </div>
+
+        {/* ---------- Right: Doctor image + floating cards ---------- */}
+        <div className="relative z-0 flex justify-center md:justify-end animate-fadeIn">
+          <div className="relative w-[240px] sm:w-[300px] md:w-[340px] aspect-[4/5] rounded-3xl overflow-hidden bg-gradient-to-br from-orange-400 to-red-600">
+            <img
+              src={DOCTOR_IMAGE}
+              alt="Doctor"
+              className="w-full h-full object-cover animate-float"
+            />
+          </div>
+
+          {/* Available Doctors card */}
+          <div className="absolute top-8  ml-12 sm:-left-4 md:-left-8 bg-white rounded-xl shadow-xl p-4 w-52 sm:w-56 z-20 animate-fadeInUp">
+            <p className="text-sm font-semibold text-slate-800">
+              Available Doctors
+            </p>
+            <p className="text-xs text-gray-400">Select Doctors</p>
+
+            <div className="mt-3 space-y-3">
+              {DOCTORS_PREVIEW.map((doc) => (
+                <div key={doc.name} className="flex items-center gap-2">
+                  <img
+                    src={doc.avatar}
+                    alt={doc.name}
+                    className="w-8 h-8 rounded-full object-cover shrink-0"
+                  />
+                  <div>
+                    <p className="text-xs font-semibold text-slate-800 leading-tight">
+                      {doc.name}
+                    </p>
+                    <p className="text-[11px] text-gray-400 leading-tight">
+                      {doc.specialty}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <button className="mt-3 w-full bg-indigo-100 text-indigo-700 text-xs font-semibold py-2 rounded-md hover:bg-indigo-200 transition-colors">
+              Find Doctor
+            </button>
+          </div>
+
+          {/* Best Certified badge */}
+          <div className="absolute bottom-4  sm:right-2 bg-white rounded-4xl shadow-lg px-4 py-2 flex items-center gap-2 z-20 animate-fadeInUp max-w-60">
+            <Star size={14} className="text-blue-500 fill-blue-500 shrink-0" />
+            <span className="text-xs font-semibold text-slate-700">
+              Best Certified Team of Specialists
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
