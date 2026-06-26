@@ -1,7 +1,6 @@
 import CareUnitSection from "../Components/Careunitsection";
 import CatchLinesSection from "../Components/Catchlinessection";
 import FindDoctorSection from "../Components/Finddoctorsection";
-import Footer from "../Components/Footer";
 import HeroSlider from "../Components/HeroSlider";
 import PrenatalCareSection from "../Components/Prenatalcaresection";
 import ServicesSection from "../Components/Service";
@@ -23,7 +22,6 @@ const Home = () => {
      <YoutubeSection/>
      <TestimonialsSection/>
      <CatchLinesSection/>
-     <Footer/>
     </>
   );
 };

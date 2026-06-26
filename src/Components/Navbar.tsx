@@ -1,16 +1,17 @@
 import { Search, Phone, Mail, Sun, Moon, Menu, X } from "lucide-react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const NAV_LINKS = [
-  "Home",
-  "Services",
-  "Doctors",
-  "Gallery",
-  "Health Scheme",
-  "About Us",
-  "Contact Us",
-  "Credentials",
-  "Shop",
+  { label: "Home", path: "/" },
+  { label: "Services", path: "/Services" },
+  { label: "Doctors", path: "/Doctors" },
+  { label: "Gallery", path: "/Gallery" },
+  { label: "Health Scheme", path: "/Health-Scheme" },
+  { label: "About Us", path: "/About-Us" },
+  { label: "Contact Us", path: "/Contact-Us" },
+  { label: "Credentials", path: "/Credentials" },
+  { label: "Shop", path: "/Shop" },
 ];
 
 interface NavbarProps {
@@ -93,8 +94,9 @@ export default function Navbar({ darkMode, setDarkMode }: NavbarProps) {
             />
             <Search size={18} style={{ color: "#6b7280" }} />
           </div>
-
+          
           <a
+          
             href="https://wa.me/916294220411"
             target="_blank"
             rel="noopener noreferrer"
@@ -143,13 +145,14 @@ export default function Navbar({ darkMode, setDarkMode }: NavbarProps) {
           } md:flex flex-col md:flex-row gap-3 md:gap-6 w-full md:w-auto`}
         >
           {NAV_LINKS.map((link) => (
-            <a
-              key={link}
-              href="#"
+            <Link
+              key={link.path}
+              to={link.path}
+              onClick={() => setMenuOpen(false)}
               className="text-white text-sm font-bold uppercase tracking-wide hover:text-yellow-200 transition-colors"
             >
-              {link}
-            </a>
+              {link.label}
+            </Link>
           ))}
         </nav>
 
@@ -168,6 +171,7 @@ export default function Navbar({ darkMode, setDarkMode }: NavbarProps) {
             <span>6294220411</span>
           </a>
           <a
+          
             href="mailto:shushrushassn@gmail.com"
             className="flex items-center gap-1 text-sm font-semibold transition-colors"
             style={{ color: "#0f766e" }}

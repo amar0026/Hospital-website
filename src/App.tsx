@@ -4,6 +4,9 @@ import Navbar from "./Components/Navbar";
 import ScrollToTop from "./ScrollToTop";
 import Home from "./Pages/Home";
 import { DarkModeContext } from "./Context/Darkmodecontext";
+import Footer from "./Components/Footer";
+import Service from "./Pages/Servicepage";
+import Doctors from "./Pages/Doctorspage";
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -15,7 +18,10 @@ export default function App() {
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="Services" element={<Service />} />
+          <Route path="Doctors" element={<Doctors />} />
         </Routes>
+        <Footer/>
       </BrowserRouter>
     </DarkModeContext.Provider>
   );
