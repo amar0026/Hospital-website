@@ -33,7 +33,6 @@ const NUMBERED_LIST = [
   },
 ];
 
-// 🔁 replace all of these with your hosted image URLs
 const IMG_RECEPTION =
   "https://res.cloudinary.com/dquki4xol/image/upload/v1782295409/0a7dc14b00df8f826b922030d5be32e62ac75bbb_e9vej1.png";
 const IMG_SHELF =
@@ -42,8 +41,10 @@ const IMG_DRUG_SHOP =
   "https://res.cloudinary.com/dquki4xol/image/upload/v1782295409/a45eb4c735580d4ac50e8838ca69283ef39c402e_rzrjrp.png";
 const IMG_WARD =
   "https://res.cloudinary.com/dquki4xol/image/upload/v1782295408/69173a4efe83559525ef82fc614dc78cc437102a_orbp0t.png";
-const LOGO_BLUE = "https://res.cloudinary.com/dquki4xol/image/upload/v1782217168/f3d532215994532d9135a01f42c4fa6d7763dc8e_rhr0v4.png"; // 🔁 your blue circular logo
-const LOGO_PINK = "https://res.cloudinary.com/dquki4xol/image/upload/v1782217168/94c29ad4ea33d94b0f44ebe7d3ede96579fef262_jfkggs.png"; // 🔁 your pink circular logo
+const LOGO_BLUE =
+  "https://res.cloudinary.com/dquki4xol/image/upload/v1782217168/f3d532215994532d9135a01f42c4fa6d7763dc8e_rhr0v4.png";
+const LOGO_PINK =
+  "https://res.cloudinary.com/dquki4xol/image/upload/v1782217168/94c29ad4ea33d94b0f44ebe7d3ede96579fef262_jfkggs.png";
 
 function WaveLines({ className }: { className: string }) {
   return (
@@ -79,76 +80,111 @@ export default function WhyChooseSection() {
           className="mt-4 text-gray-500 text-sm sm:text-base opacity-0 animate-fadeInUp"
           style={{ animationDelay: "0.1s" }}
         >
-          Choose Shusrusha for expert, compassionate care tailored to the
-          unique needs of mothers and children.
+          Choose Shusrusha for expert, compassionate care tailored to the unique
+          needs of mothers and children.
         </p>
       </div>
 
-      <div className="max-w-6xl mx-auto mt-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-        {/* ---------- Left: image collage ---------- */}
-        <div className="relative">
+      {/* 
+        KEY FIX: items-stretch on the grid so both columns stretch to equal height.
+        Left column uses flex-col to fill height, right column uses flex-col + justify-between
+        so items spread top-to-bottom exactly matching left column height.
+      */}
+      <div className="max-w-6xl mx-auto mt-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
+
+        {/* ── Left: image collage ── */}
+        <div className="relative flex flex-col">
           <WaveLines className="absolute -top-5 -left-2 w-16 h-7 text-red-400 hidden sm:block" />
 
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-4 opacity-0 animate-fadeInUp">
-              <img
-                src={IMG_RECEPTION}
-                alt="Reception area"
-                className="rounded-xl w-full h-32 sm:h-40 object-cover shadow-sm hover:scale-105 transition-transform duration-300"
-              />
-              <img
-                src={LOGO_BLUE}
-                alt="Shusrusha Shishu Seva Niketan logo"
-                className="rounded-full w-24 h-24 sm:w-32 sm:h-32 mx-auto object-cover shadow-sm"
-              />
-              <img
-                src={LOGO_PINK}
-                alt="Shusrusha Maternity logo"
-                className="rounded-full w-24 h-24 sm:w-32 sm:h-32 mx-auto object-cover shadow-sm"
-              />
+          {/*
+            Two columns inside the collage.
+            Left col: 1 wide photo + 2 logos stacked.
+            Right col: 3 equal photos.
+            All images use aspect-ratio so they scale uniformly regardless of screen size.
+          */}
+          <div className="grid grid-cols-2 gap-3 flex-1">
+
+            {/* Col A */}
+            <div
+              className="flex flex-col gap-3 opacity-0 animate-fadeInUp"
+            >
+              {/* Wide photo – taller to compensate for only having 1 vs 3 */}
+              <div className="rounded-xl overflow-hidden" style={{ flex: "1.4" }}>
+                <img
+                  src={IMG_RECEPTION}
+                  alt="Reception area"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+
+              {/* Two logos, equal flex */}
+              <div className="rounded-xl overflow-hidden flex items-center justify-center bg-gray-50" style={{ flex: "0.8" }}>
+                <img
+                  src={LOGO_BLUE}
+                  alt="Shusrusha Shishu Seva Niketan logo"
+                  className="w-full h-full object-contain p-2"
+                />
+              </div>
+              <div className="rounded-xl overflow-hidden flex items-center justify-center bg-gray-50" style={{ flex: "0.8" }}>
+                <img
+                  src={LOGO_PINK}
+                  alt="Shusrusha Maternity logo"
+                  className="w-full h-full object-contain p-2"
+                />
+              </div>
             </div>
 
+            {/* Col B — three equal photos */}
             <div
-              className="space-y-4 mt-8 sm:mt-10 opacity-0 animate-fadeInUp"
+              className="flex flex-col gap-3 opacity-0 animate-fadeInUp"
               style={{ animationDelay: "0.15s" }}
             >
-              <img
-                src={IMG_SHELF}
-                alt="Pharmacy shelf"
-                className="rounded-xl w-full h-28 sm:h-32 object-cover shadow-sm hover:scale-105 transition-transform duration-300"
-              />
-              <img
-                src={IMG_DRUG_SHOP}
-                alt="Shusrusha Drug Shop"
-                className="rounded-xl w-full h-28 sm:h-32 object-cover shadow-sm hover:scale-105 transition-transform duration-300"
-              />
-              <img
-                src={IMG_WARD}
-                alt="Hospital ward"
-                className="rounded-xl w-full h-28 sm:h-32 object-cover shadow-sm hover:scale-105 transition-transform duration-300"
-              />
+              <div className="rounded-xl overflow-hidden" style={{ flex: "1" }}>
+                <img
+                  src={IMG_SHELF}
+                  alt="Pharmacy shelf"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <div className="rounded-xl overflow-hidden" style={{ flex: "1" }}>
+                <img
+                  src={IMG_DRUG_SHOP}
+                  alt="Shusrusha Drug Shop"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <div className="rounded-xl overflow-hidden" style={{ flex: "1" }}>
+                <img
+                  src={IMG_WARD}
+                  alt="Hospital ward"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                />
+              </div>
             </div>
           </div>
 
           <WaveLines className="absolute -bottom-5 right-2 w-16 h-7 text-orange-400 hidden sm:block" />
         </div>
 
-        {/* ---------- Right: numbered list ---------- */}
-        <div className="space-y-6">
+        {/* ── Right: numbered list ──
+            justify-between spreads items so first item aligns with top of collage
+            and last item aligns with bottom, matching visually on large screens.
+        */}
+        <div className="flex flex-col justify-between gap-2">
           {NUMBERED_LIST.map((item, i) => (
             <div
               key={item.title}
               className="flex gap-4 opacity-0 animate-fadeInUp"
-              style={{ animationDelay: `${i * 0.1}s` }}
+              style={{ animationDelay: `${i * 0.07}s` }}
             >
               <div className="shrink-0 w-9 h-9 rounded-full bg-teal-50 border border-teal-200 text-teal-700 font-semibold flex items-center justify-center text-sm">
                 {i + 1}
               </div>
               <div>
-                <h3 className="font-bold text-slate-900 text-base sm:text-lg">
+                <h3 className="font-bold text-slate-900 text-base sm:text-lg leading-tight">
                   {item.title}
                 </h3>
-                <p className="text-gray-500 text-sm mt-1">{item.desc}</p>
+                <p className="text-gray-500 text-sm mt-0.5">{item.desc}</p>
               </div>
             </div>
           ))}

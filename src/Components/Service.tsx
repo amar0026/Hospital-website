@@ -5,6 +5,7 @@ import {
   ClipboardCheck,
   SquarePlus,
 } from "lucide-react";
+import { useDarkMode } from "../Context/Darkmodecontext";
 
 const SERVICES = [
   {
@@ -39,23 +40,27 @@ function ServiceCard({
   title,
   desc,
   index,
-  offset,
+  darkMode,
 }: {
   icon: typeof MessageSquare;
   title: string;
   desc: string;
   index: number;
-  offset?: boolean;
+  darkMode: boolean;
 }) {
   return (
     <div
-      className={`bg-white border border-sky-100 rounded-2xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 opacity-0 animate-fadeInUp ${
-        offset ? "md:mt-8" : ""
-      }`}
+      className="h-full bg-white border border-sky-100 rounded-2xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 opacity-0 animate-fadeInUp"
       style={{ animationDelay: `${index * 0.15}s` }}
     >
-      <Icon size={28} className="text-blue-600" />
-      <h3 className="mt-4 text-blue-700 font-semibold text-base sm:text-lg">
+      <Icon
+        size={28}
+        style={{ color: darkMode ? "#FA6BB8" : "#2563eb" }}
+      />
+      <h3
+        className="mt-4 font-semibold text-base sm:text-lg"
+        style={{ color: darkMode ? "#FF007A" : "#1d4ed8" }}
+      >
         {title}
       </h3>
       <p className="mt-2 text-gray-500 text-sm leading-relaxed">{desc}</p>
@@ -64,12 +69,21 @@ function ServiceCard({
 }
 
 export default function ServicesSection() {
+  const darkMode = useDarkMode();
+
+  const headingGradient = darkMode
+    ? "linear-gradient(to right, #FF007A, #FA6BB8)"
+    : "linear-gradient(to right, #dc2626, #f97316)";
+
   return (
     <section className="w-full bg-white py-14 sm:py-16 md:py-20 px-5 sm:px-8">
       <div className="max-w-5xl mx-auto text-center">
         <h2
-          className="text-2xl sm:text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-red-600 to-orange-500 bg-clip-text text-transparent opacity-0 animate-fadeInUp"
-          style={{ animationDelay: "0s" }}
+          className="text-2xl sm:text-3xl md:text-4xl font-extrabold opacity-0 animate-fadeInUp bg-clip-text text-transparent"
+          style={{
+            backgroundImage: headingGradient,
+            animationDelay: "0s",
+          }}
         >
           Top services we offer
         </h2>
@@ -82,17 +96,15 @@ export default function ServicesSection() {
           services.
         </p>
 
-        {/* Row 1: 2 cards */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 text-left">
-          <ServiceCard {...SERVICES[0]} index={0} />
-          <ServiceCard {...SERVICES[1]} index={1} offset />
-        </div>
-
-        {/* Row 2: 3 cards */}
-        <div className="mt-6 md:mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 text-left">
-          <ServiceCard {...SERVICES[2]} index={2} />
-          <ServiceCard {...SERVICES[3]} index={3} offset />
-          <ServiceCard {...SERVICES[4]} index={4} />
+        <div className="mt-12 flex flex-wrap justify-center gap-6 md:gap-8 text-left">
+          {SERVICES.map((service, index) => (
+            <div
+              key={service.title}
+              className="w-full sm:w-[calc(50%-0.75rem)] md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.334rem)]"
+            >
+              <ServiceCard {...service} index={index} darkMode={darkMode} />
+            </div>
+          ))}
         </div>
       </div>
     </section>

@@ -1,6 +1,6 @@
 import { CheckCircle2, Star } from "lucide-react";
+import { useDarkMode } from "../Context/Darkmodecontext";
 
-// 🔁 replace with your hosted doctor image URL
 const DOCTOR_IMAGE =
   "https://res.cloudinary.com/dquki4xol/image/upload/v1782287093/3905051fd99bb0eee983da45905acfc0a0db3e77_vdgolp.png";
 
@@ -18,16 +18,40 @@ const DOCTORS_PREVIEW = [
 ];
 
 export default function FindDoctorSection() {
+  const darkMode = useDarkMode();
+
+  const btnGradient = darkMode
+    ? "linear-gradient(to right, #FF007A, #FA6BB8)"
+    : "linear-gradient(to right, #f97316, #dc2626)";
+
+  const imgGradient = darkMode
+    ? "linear-gradient(to bottom right, #FF007A, #FA6BB8)"
+    : "linear-gradient(to bottom right, #fb923c, #dc2626)";
+
   return (
     <section className="w-full bg-white py-14 sm:py-16 md:py-20 px-5 sm:px-8 overflow-hidden">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-12 items-center">
+
         {/* ---------- Left: Text content ---------- */}
         <div className="animate-fadeInUp">
-          <p className="text-red-600 font-semibold text-sm">Find Doctor</p>
-          <h2 className="mt-2 text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight">
+          <p
+            className="font-semibold text-sm"
+            style={{ color: darkMode ? "#FA6BB8" : "#dc2626" }}
+          >
+            Find Doctor
+          </p>
+
+          <h2
+            className="mt-2 text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight"
+            style={{ color: darkMode ? "#1e293b" : "#0f172a" }}
+          >
             Find the right doctor according to your complaint
           </h2>
-          <p className="mt-4 text-gray-500 text-sm sm:text-base max-w-lg">
+
+          <p
+            className="mt-4 text-sm sm:text-base max-w-lg"
+            style={{ color: darkMode ? "#475569" : "#6b7280" }}
+          >
             Connect with top specialists at Shusrusha Multispeciality Mother
             and Child Care Unit. Our expert doctors provide personalized care
             for both mothers and children, ensuring comprehensive health
@@ -38,34 +62,42 @@ export default function FindDoctorSection() {
 
           <ul className="mt-5 space-y-3">
             <li className="flex items-start gap-2">
-              <CheckCircle2
-                size={18}
-                className="text-blue-600 mt-0.5 shrink-0"
-              />
-              <span className="text-sm text-slate-700">
+              <CheckCircle2 size={18} className="text-blue-600 mt-0.5 shrink-0" />
+              <span
+                className="text-sm"
+                style={{ color: darkMode ? "#334155" : "#334155" }}
+              >
                 Designed to help you find the right doctor for your unique
                 medical and personal needs.
               </span>
             </li>
             <li className="flex items-start gap-2">
-              <CheckCircle2
-                size={18}
-                className="text-blue-600 mt-0.5 shrink-0"
-              />
-              <span className="text-sm text-slate-700">
+              <CheckCircle2 size={18} className="text-blue-600 mt-0.5 shrink-0" />
+              <span
+                className="text-sm"
+                style={{ color: darkMode ? "#334155" : "#334155" }}
+              >
                 Available 20+ doctors specialist
               </span>
             </li>
           </ul>
 
-          <button className="mt-7 bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-semibold px-7 py-3 rounded-md transition-all">
+          <button
+            style={{ background: btnGradient }}
+            className="mt-7 text-white font-semibold px-7 py-3 rounded-md transition-all"
+          >
             See Doctors
           </button>
         </div>
 
         {/* ---------- Right: Doctor image + floating cards ---------- */}
         <div className="relative z-0 flex justify-center md:justify-end animate-fadeIn">
-          <div className="relative w-[240px] sm:w-[300px] md:w-[340px] aspect-[4/5] rounded-3xl overflow-hidden bg-gradient-to-br from-orange-400 to-red-600">
+
+          {/* image frame gradient switches */}
+          <div
+            className="relative w-[240px] sm:w-[300px] md:w-[340px] aspect-[4/5] rounded-3xl overflow-hidden"
+            style={{ background: imgGradient }}
+          >
             <img
               src={DOCTOR_IMAGE}
               alt="Doctor"
@@ -73,8 +105,8 @@ export default function FindDoctorSection() {
             />
           </div>
 
-          {/* Available Doctors card */}
-          <div className="absolute top-8  ml-12 sm:-left-4 md:-left-8 bg-white rounded-xl shadow-xl p-4 w-52 sm:w-56 z-20 animate-fadeInUp">
+          {/* Available Doctors card — bg white dono modes mein */}
+          <div className="absolute top-8 ml-12 sm:-left-4 md:-left-8 bg-white rounded-xl shadow-xl p-4 w-52 sm:w-56 z-20 animate-fadeInUp">
             <p className="text-sm font-semibold text-slate-800">
               Available Doctors
             </p>
@@ -105,14 +137,15 @@ export default function FindDoctorSection() {
             </button>
           </div>
 
-          {/* Best Certified badge */}
-          <div className="absolute bottom-4  sm:right-2 bg-white rounded-4xl shadow-lg px-4 py-2 flex items-center gap-2 z-20 animate-fadeInUp max-w-60">
+          {/* Best Certified badge — bg white dono modes mein */}
+          <div className="absolute bottom-4 sm:right-2 bg-white rounded-4xl shadow-lg px-4 py-2 flex items-center gap-2 z-20 animate-fadeInUp max-w-60">
             <Star size={14} className="text-blue-500 fill-blue-500 shrink-0" />
             <span className="text-xs font-semibold text-slate-700">
               Best Certified Team of Specialists
             </span>
           </div>
         </div>
+
       </div>
     </section>
   );

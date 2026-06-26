@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useDarkMode } from "../Context/Darkmodecontext";
 
 const TESTIMONIALS = [
   {
@@ -45,7 +46,6 @@ function useInView(threshold = 0.1) {
   return { ref, inView };
 }
 
-// How many cards visible based on screen size
 function useVisibleCount() {
   const [count, setCount] = useState(3);
   useEffect(() => {
@@ -64,6 +64,7 @@ function useVisibleCount() {
 export default function TestimonialsSection() {
   const { ref, inView } = useInView();
   const visibleCount = useVisibleCount();
+  const darkMode = useDarkMode();
   const [current, setCurrent] = useState(0);
   const [animDir, setAnimDir] = useState<"left" | "right" | null>(null);
   const [animating, setAnimating] = useState(false);
@@ -87,6 +88,14 @@ export default function TestimonialsSection() {
 
   const visibleCards = TESTIMONIALS.slice(current, current + visibleCount);
 
+  const accentColor = darkMode ? "#FF007A" : "#f97316";
+  const btnGradient = darkMode
+    ? "linear-gradient(to bottom right, #FF007A, #FA6BB8)"
+    : "linear-gradient(to bottom right, #fb923c, #ef4444)";
+  const bannerGradient = darkMode
+    ? "linear-gradient(to right, #FF007A, #FA6BB8)"
+    : "linear-gradient(to right, #f97316, #dc2626)";
+
   return (
     <section ref={ref} className="w-full bg-white pt-14 sm:pt-16 md:pt-20 overflow-hidden">
 
@@ -99,8 +108,13 @@ export default function TestimonialsSection() {
           transform: inView ? "translateY(0)" : "translateY(24px)",
         }}
       >
-        <p className="text-red-500 font-semibold text-sm uppercase tracking-wide">Testimonials</p>
-        <h2 className="mt-2 text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900">
+        <p
+          className="text-2xl sm:text-3xl md:text-4xl font-extrabold uppercase tracking-wide"
+          style={{ color: accentColor }}
+        >
+          Testimonials
+        </p>
+        <h2 className="mt-2 text-2xl sm:text-3xl md:text-4xl font-medium  text-slate-900">
           What Our Patients Say
         </h2>
       </div>
@@ -114,7 +128,7 @@ export default function TestimonialsSection() {
         }}
       >
         <div
-          className="grid gap-5 transition-all duration-300"
+          className="grid gap-5"
           style={{
             gridTemplateColumns: `repeat(${visibleCount}, 1fr)`,
             opacity: animating ? 0 : 1,
@@ -129,15 +143,15 @@ export default function TestimonialsSection() {
               key={t.id}
               className="relative bg-white border border-gray-100 rounded-2xl shadow-md p-6 flex flex-col gap-4 hover:shadow-lg transition-shadow duration-300"
             >
-              {/* Quote mark */}
-              <span className="text-red-500 text-5xl font-serif leading-none select-none">"</span>
-
-              {/* Text */}
+              <span
+                className="text-5xl font-serif leading-none select-none"
+                style={{ color: accentColor }}
+              >
+                "
+              </span>
               <p className="text-gray-600 text-sm sm:text-base leading-relaxed flex-1 -mt-3">
                 {t.text}
               </p>
-
-              {/* Author */}
               <p className="text-slate-800 font-semibold text-sm mt-2">{t.name}</p>
             </div>
           ))}
@@ -155,16 +169,18 @@ export default function TestimonialsSection() {
         <button
           onClick={() => go("left")}
           disabled={current === 0}
-          className="w-11 h-11 rounded-full bg-gradient-to-br from-orange-400 to-red-500 text-white flex items-center justify-center shadow-md hover:scale-110 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:scale-100"
           aria-label="Previous"
+          className="w-11 h-11 rounded-full text-white flex items-center justify-center shadow-md hover:scale-110 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:scale-100"
+          style={{ background: btnGradient }}
         >
           <ChevronLeft size={20} />
         </button>
         <button
           onClick={() => go("right")}
           disabled={current >= maxIndex}
-          className="w-11 h-11 rounded-full bg-gradient-to-br from-orange-400 to-red-500 text-white flex items-center justify-center shadow-md hover:scale-110 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:scale-100"
           aria-label="Next"
+          className="w-11 h-11 rounded-full text-white flex items-center justify-center shadow-md hover:scale-110 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:scale-100"
+          style={{ background: btnGradient }}
         >
           <ChevronRight size={20} />
         </button>
@@ -180,7 +196,7 @@ export default function TestimonialsSection() {
             style={{
               width: current === i ? "24px" : "8px",
               height: "8px",
-              background: current === i ? "#f97316" : "#d1d5db",
+              background: current === i ? accentColor : "#d1d5db",
             }}
             aria-label={`Go to slide ${i + 1}`}
           />
@@ -189,32 +205,30 @@ export default function TestimonialsSection() {
 
       {/* ── Add Feedback banner ── */}
       <div
-        className="mt-12 w-full bg-gradient-to-r from-orange-500 to-red-600 py-5 px-6 flex flex-col sm:flex-row items-center justify-center gap-4"
+        className="mt-12 w-full py-5 px-6 flex flex-col sm:flex-row items-center justify-center gap-4"
         style={{
+          background: bannerGradient,
           transition: "opacity 0.7s ease 0.5s, transform 0.7s ease 0.5s",
           opacity: inView ? 1 : 0,
           transform: inView ? "translateY(0)" : "translateY(20px)",
         }}
       >
-        {/* Decorative slashes left */}
         <div className="hidden sm:flex gap-1 mr-4 opacity-40">
           {[0, 1, 2].map((i) => (
             <div key={i} className="w-1 h-8 bg-white rounded-sm rotate-12" />
           ))}
         </div>
-
         <h3 className="text-white font-bold text-lg sm:text-xl text-center">
           Add Your Feedbacks
         </h3>
-
         <a
+        
           href="#feedback"
           className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-6 py-2.5 rounded-md transition-colors duration-200 shadow-md whitespace-nowrap"
         >
           Add Feedback
         </a>
 
-        {/* Decorative slashes right */}
         <div className="hidden sm:flex gap-1 ml-4 opacity-40">
           {[0, 1, 2].map((i) => (
             <div key={i} className="w-1 h-8 bg-white rounded-sm rotate-12" />

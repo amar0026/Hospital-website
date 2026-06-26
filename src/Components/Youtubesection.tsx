@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Play } from "lucide-react";
+import { useDarkMode } from "../Context/Darkmodecontext";
 
-// 🔁 Replace with your actual YouTube video URLs
 const VIDEOS = [
   {
     id: 1,
@@ -39,6 +39,13 @@ function useInView(threshold = 0.15) {
 
 export default function YoutubeSection() {
   const { ref, inView } = useInView();
+  const darkMode = useDarkMode();
+
+  const btnGradient = darkMode
+    ? "linear-gradient(to right, #FF007A, #FA6BB8)"
+    : "linear-gradient(to right, #f97316, #dc2626)";
+
+  const headingColor = darkMode ? "#FA6BB8" : "#f97316";
 
   return (
     <section
@@ -54,7 +61,10 @@ export default function YoutubeSection() {
           transform: inView ? "translateY(0)" : "translateY(24px)",
         }}
       >
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-orange-500">
+        <h2
+          className="text-2xl sm:text-3xl md:text-4xl font-extrabold"
+          style={{ color: headingColor }}
+        >
           Visit Our channel and learn!
         </h2>
         <p className="mt-3 text-gray-500 text-sm sm:text-base leading-relaxed">
@@ -77,24 +87,17 @@ export default function YoutubeSection() {
               opacity: inView ? 1 : 0,
               transform: inView ? "translateY(0)" : "translateY(32px)",
             }}
+            
           >
-            {/* Thumbnail */}
             <img
               src={video.thumbnail}
               alt={`Video ${video.id}`}
               className="w-full aspect-video object-cover group-hover:scale-105 transition-transform duration-500"
             />
-
-            {/* Dark overlay on hover */}
             <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300" />
-
-            {/* Play button */}
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="w-14 h-14 rounded-full bg-white/90 group-hover:bg-white group-hover:scale-110 transition-all duration-300 flex items-center justify-center shadow-lg">
-                <Play
-                  size={22}
-                  className="text-red-600 fill-red-600 ml-1"
-                />
+                <Play size={22} className="text-red-600 fill-red-600 ml-1" />
               </div>
             </div>
           </a>
@@ -114,7 +117,8 @@ export default function YoutubeSection() {
           href={CHANNEL_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-semibold px-8 py-3 rounded-md transition-all duration-300 shadow-md hover:shadow-lg"
+          className="text-white font-semibold px-8 py-3 rounded-md transition-all duration-300 shadow-md hover:shadow-lg"
+          style={{ background: btnGradient }}
         >
           Visit Channel
         </a>

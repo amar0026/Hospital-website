@@ -1,16 +1,16 @@
 import { Phone, MapPin, Mail } from "lucide-react";
+import { useDarkMode } from "../Context/Darkmodecontext";
 
-// 🔁 Replace these with your actual values
 const LOGO = "https://res.cloudinary.com/dquki4xol/image/upload/v1782217168/94c29ad4ea33d94b0f44ebe7d3ede96579fef262_jfkggs.png";
 const PHONE = "02894220411";
 const ADDRESS = "Borisha-Kolaghat-Purbasthali pore- Pin-721134, Near Haldia More- N-1-2";
 const EMAIL = "Office@shusrusha.com";
 
 const SOCIAL_LINKS = {
-  facebook: "#",   // 🔁 your Facebook URL
-  twitter: "#",    // 🔁 your Twitter/X URL
-  youtube: "#",    // 🔁 your YouTube URL
-  linkedin: "#",   // 🔁 your LinkedIn URL
+  facebook: "#",
+  twitter: "#",
+  youtube: "#",
+  linkedin: "#",
 };
 
 const USEFUL_PAGES = [
@@ -27,7 +27,6 @@ const COMPANY_LINKS = [
   { label: "User Strategy", href: "#strategy" },
 ];
 
-// Social icons (inline SVG for no extra dependency)
 function FacebookIcon() {
   return (
     <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg">
@@ -58,8 +57,17 @@ function LinkedinIcon() {
 }
 
 export default function Footer() {
+  const darkMode = useDarkMode();
+
+  const footerGradient = darkMode
+    ? "linear-gradient(to bottom right, #FF007A, #be185d, #FA6BB8)"
+    : "linear-gradient(to bottom right, #f97316, #f97316, #dc2626)";
+
   return (
-    <footer className="w-full mt-5 bg-gradient-to-br from-orange-500 via-orange-500 to-red-600 text-white">
+    <footer
+      className="w-full mt-5 text-white"
+      style={{ background: footerGradient }}
+    >
       <div className="max-w-6xl mx-auto px-5 sm:px-8 py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
 
@@ -75,7 +83,7 @@ export default function Footer() {
             </p>
             <a
               href={`tel:${PHONE}`}
-              className="flex items-center gap-2 text-white text-sm font-semibold hover:text-orange-200 transition-colors"
+              className="flex items-center gap-2 text-white text-sm font-semibold hover:text-white/70 transition-colors"
             >
               <Phone size={14} className="shrink-0" />
               {PHONE}
@@ -142,13 +150,13 @@ export default function Footer() {
               </p>
               <div className="flex gap-2">
                 {[
-                  { href: SOCIAL_LINKS.facebook, Icon: FacebookIcon, bg: "bg-blue-600" },
-                  { href: SOCIAL_LINKS.twitter,  Icon: TwitterIcon,  bg: "bg-black" },
-                  { href: SOCIAL_LINKS.youtube,  Icon: YoutubeIcon,  bg: "bg-red-600" },
-                  { href: SOCIAL_LINKS.linkedin, Icon: LinkedinIcon, bg: "bg-blue-700" },
-                ].map(({ href, Icon, bg }) => (
+                  { href: SOCIAL_LINKS.facebook, Icon: FacebookIcon, bg: "bg-blue-600",  label: "facebook" },
+                  { href: SOCIAL_LINKS.twitter,  Icon: TwitterIcon,  bg: "bg-black",     label: "twitter"  },
+                  { href: SOCIAL_LINKS.youtube,  Icon: YoutubeIcon,  bg: "bg-red-600",   label: "youtube"  },
+                  { href: SOCIAL_LINKS.linkedin, Icon: LinkedinIcon, bg: "bg-blue-700",  label: "linkedin" },
+                ].map(({ href, Icon, bg, label }) => (
                   <a
-                    key={bg}
+                    key={label}
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -160,6 +168,7 @@ export default function Footer() {
               </div>
             </div>
           </div>
+
         </div>
       </div>
 
