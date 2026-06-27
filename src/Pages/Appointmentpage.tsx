@@ -36,6 +36,9 @@ interface FormData {
   agree: boolean;
 }
 
+// Error messages are always strings, regardless of the field's own data type
+type FormErrors = Partial<Record<keyof FormData, string>>;
+
 const EMPTY_FORM: FormData = {
   firstName: "",
   lastName: "",
@@ -59,7 +62,7 @@ export default function AppointmentPage() {
 
   const [form, setForm] = useState<FormData>(EMPTY_FORM);
   const [submitted, setSubmitted] = useState(false);
-  const [errors, setErrors] = useState<Partial<FormData>>({});
+  const [errors, setErrors] = useState<FormErrors>({});
 
   // ── Theme tokens ───────────────────────────────────────────────────────────
   const bg        = darkMode ? "#ffffff" : "#f0f4ff";
@@ -79,7 +82,7 @@ export default function AppointmentPage() {
     setForm((prev) => ({ ...prev, [key]: value }));
 
   const validate = () => {
-    const e: Partial<Record<keyof FormData, string>> = {};
+    const e: FormErrors = {};
     if (!form.firstName.trim())    e.firstName    = "First name is required";
     if (!form.lastName.trim())     e.lastName     = "Last name is required";
     if (!form.age.trim())          e.age          = "Age is required";
