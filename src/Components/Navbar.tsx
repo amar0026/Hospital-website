@@ -7,7 +7,7 @@ const NAV_LINKS = [
   { label: "Services", path: "/Services" },
   { label: "Doctors", path: "/Doctors" },
   { label: "Gallery", path: "/Gallery" },
-  { label: "Health Scheme", path: "/Health-Scheme" },
+  { label: "Health Scheme", path: "/HealthScheme" },
   { label: "About Us", path: "/About-Us" },
   { label: "Contact Us", path: "/Contact-Us" },
   { label: "Credentials", path: "/Credentials" },

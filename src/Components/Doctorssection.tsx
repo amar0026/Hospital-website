@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { useDarkMode } from "../Context/Darkmodecontext";
 
 interface HospitalDoctor {
@@ -9,6 +10,7 @@ interface HospitalDoctor {
 }
 
 interface OutdoorDoctor {
+  id: string;
   name: string;
   specialty: string;
   description: string;
@@ -68,8 +70,9 @@ const HOSPITAL_DOCTORS: HospitalDoctor[] = [
   },
 ];
 
-const OUTDOOR_DOCTORS: OutdoorDoctor[] = [
+export const OUTDOOR_DOCTORS: OutdoorDoctor[] = [
   {
+    id: "probir-bhowmik",
     name: "Dr. Probir Bhowmik",
     specialty: "Senior Paediatrician",
     description:
@@ -77,6 +80,7 @@ const OUTDOOR_DOCTORS: OutdoorDoctor[] = [
     image: "https://res.cloudinary.com/dquki4xol/image/upload/v1782476709/images_2_k3y3ap.jpg",
   },
   {
+    id: "swetarka-bhowmik",
     name: "Dr. Swetarka Bhowmik",
     specialty: "Child Specialist",
     description:
@@ -84,6 +88,7 @@ const OUTDOOR_DOCTORS: OutdoorDoctor[] = [
     image: "https://res.cloudinary.com/dquki4xol/image/upload/v1782476709/images_vmv7wv.jpg",
   },
   {
+    id: "ananya-sen",
     name: "Dr. Ananya Sen",
     specialty: "Neonatologist",
     description:
@@ -91,6 +96,7 @@ const OUTDOOR_DOCTORS: OutdoorDoctor[] = [
     image: "https://res.cloudinary.com/dquki4xol/image/upload/v1782476709/images_1_lkhrmv.jpg",
   },
   {
+    id: "rajesh-kumar",
     name: "Dr. Rajesh Kumar",
     specialty: "Paediatric Surgeon",
     description:
@@ -98,6 +104,7 @@ const OUTDOOR_DOCTORS: OutdoorDoctor[] = [
     image: "https://res.cloudinary.com/dquki4xol/image/upload/v1782476709/istockphoto-2153805399-612x612_jlutmc.jpg",
   },
   {
+    id: "priya-mukherjee",
     name: "Dr. Priya Mukherjee",
     specialty: "Paediatric Cardiologist",
     description:
@@ -105,6 +112,7 @@ const OUTDOOR_DOCTORS: OutdoorDoctor[] = [
     image: "https://res.cloudinary.com/dquki4xol/image/upload/v1782476708/images_3_iklgk5.jpg",
   },
   {
+    id: "arjun-das",
     name: "Dr. Arjun Das",
     specialty: "General Physician",
     description:
@@ -112,6 +120,7 @@ const OUTDOOR_DOCTORS: OutdoorDoctor[] = [
     image: "https://res.cloudinary.com/dquki4xol/image/upload/v1782476708/images_3_iklgk5.jpg",
   },
   {
+    id: "sneha-roy",
     name: "Dr. Sneha Roy",
     specialty: "Gynaecologist",
     description:
@@ -119,6 +128,7 @@ const OUTDOOR_DOCTORS: OutdoorDoctor[] = [
     image: "https://res.cloudinary.com/dquki4xol/image/upload/v1782476709/istockphoto-2153805399-612x612_jlutmc.jpg",
   },
   {
+    id: "vikram-singh",
     name: "Dr. Vikram Singh",
     specialty: "Orthopaedic Surgeon",
     description:
@@ -126,6 +136,7 @@ const OUTDOOR_DOCTORS: OutdoorDoctor[] = [
     image: "https://res.cloudinary.com/dquki4xol/image/upload/v1782476709/images_1_lkhrmv.jpg",
   },
   {
+    id: "meera-iyer",
     name: "Dr. Meera Iyer",
     specialty: "Dermatologist",
     description:
@@ -133,6 +144,7 @@ const OUTDOOR_DOCTORS: OutdoorDoctor[] = [
     image: "https://res.cloudinary.com/dquki4xol/image/upload/v1782476709/images_vmv7wv.jpg",
   },
   {
+    id: "kabir-chatterjee",
     name: "Dr. Kabir Chatterjee",
     specialty: "ENT Specialist",
     description:
@@ -145,15 +157,16 @@ type Tab = "hospital" | "outdoor";
 
 export default function DoctorsSection() {
   const darkMode = useDarkMode();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<Tab>("hospital");
 
-  const sectionBg = darkMode ? "#ffffff" : "#ffffff";
-  const cardBg = darkMode ? "#ffffff" : "#ffffff";
-  const cardBorder = darkMode ? "#334155" : "#334155";
-  const nameColor = darkMode ? "#0f172a" : "#0f172a";
+  const sectionBg = "#ffffff";
+  const cardBg = "#ffffff";
+  const cardBorder = "#334155";
+  const nameColor = "#0f172a";
   const descColor = darkMode ? "#94a3b8" : "#6b7280";
   const accentColor = darkMode ? "#FA6BB8" : "#2563eb";
-  const inactiveTabColor = darkMode ? "#475569" : "#475569";
+  const inactiveTabColor = "#475569";
 
   const bannerGradient = darkMode
     ? "linear-gradient(to right, #FF007A, #FA6BB8)"
@@ -166,6 +179,14 @@ export default function DoctorsSection() {
   const buttonGradient = darkMode
     ? "linear-gradient(to right, #FF007A, #FA6BB8)"
     : "linear-gradient(to right, #dc2626, #f97316)";
+
+  const handleBookAppointment = (doctorId: string) => {
+    navigate(`/appointment/${doctorId}`);
+  };
+
+  const handleDoctorDetails = (doctorId: string) => {
+    navigate(`/appointment/${doctorId}`);
+  };
 
   return (
     <section
@@ -249,7 +270,7 @@ export default function DoctorsSection() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-8">
             {OUTDOOR_DOCTORS.map((doc) => (
               <div
-                key={doc.name}
+                key={doc.id}
                 className="flex gap-4 sm:gap-5 items-start pb-6 border-b transition-colors duration-300"
                 style={{ borderColor: cardBorder }}
               >
@@ -287,16 +308,17 @@ export default function DoctorsSection() {
                     <button
                       style={{ background: buttonGradient }}
                       className="text-white text-xs sm:text-sm font-semibold px-4 py-2 rounded-md transition-all"
+                      onClick={() => handleBookAppointment(doc.id)}
                     >
                       Book Appointment
                     </button>
-                    <a
-                      href="#"
-                      className="inline-flex items-center gap-1 text-xs sm:text-sm font-medium hover:underline transition-colors duration-300"
+                    <button
+                      onClick={() => handleDoctorDetails(doc.id)}
+                      className="inline-flex items-center gap-1 text-xs sm:text-sm font-medium hover:underline transition-colors duration-300 bg-transparent border-none cursor-pointer p-0"
                       style={{ color: accentColor }}
                     >
                       Doctor Details <ArrowUpRight size={14} />
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
