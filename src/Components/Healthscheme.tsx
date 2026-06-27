@@ -1,5 +1,5 @@
 import { useDarkMode } from "../Context/Darkmodecontext";
-import { Search, Phone, UserRound, Sparkles, Check } from "lucide-react";
+import { Search, Phone,Sparkles, Check } from "lucide-react";
 
 interface PricingPlan {
     id: string;
