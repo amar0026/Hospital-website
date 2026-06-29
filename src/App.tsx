@@ -12,6 +12,8 @@ import Gallery from "./Pages/Gallerypage";
 import HealthScheme from "./Pages/Healthscheme";
 import Contact from "./Pages/Contactpage";
 import Credentials from "./Pages/Credentialspage";
+import Shop from "./Pages/Shoppage";
+import About from "./Pages/Aboutpage";
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -27,11 +29,13 @@ export default function App() {
           <Route path="Doctors" element={<Doctors />} />
           <Route path="/appointment/:doctorId" element={<AppointmentPage />} />
           <Route path="Gallery" element={<Gallery />} />
-          <Route path="Healthscheme" element={<HealthScheme />} />
+          <Route path="HealthScheme" element={<HealthScheme />} />
           <Route path="Contact-Us" element={<Contact />} />
           <Route path="Credentials" element={<Credentials />} />
+          <Route path="Shop" element={<Shop />} />
+          <Route path="About-Us" element={<About />} />
         </Routes>
-        <Footer/>
+        <Footer />
       </BrowserRouter>
     </DarkModeContext.Provider>
   );

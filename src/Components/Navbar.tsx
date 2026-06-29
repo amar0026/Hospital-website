@@ -1,6 +1,6 @@
 import { Search, Phone, Mail, Sun, Moon, Menu, X } from "lucide-react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const NAV_LINKS = [
   { label: "Home", path: "/" },
@@ -94,9 +94,8 @@ export default function Navbar({ darkMode, setDarkMode }: NavbarProps) {
             />
             <Search size={18} style={{ color: "#6b7280" }} />
           </div>
-          
+
           <a
-          
             href="https://wa.me/916294220411"
             target="_blank"
             rel="noopener noreferrer"
@@ -145,14 +144,20 @@ export default function Navbar({ darkMode, setDarkMode }: NavbarProps) {
           } md:flex flex-col md:flex-row gap-3 md:gap-6 w-full md:w-auto`}
         >
           {NAV_LINKS.map((link) => (
-            <Link
+            <NavLink
               key={link.path}
               to={link.path}
               onClick={() => setMenuOpen(false)}
-              className="text-white text-sm font-bold uppercase tracking-wide hover:text-yellow-200 transition-colors"
+              className={({ isActive }) =>
+                `inline-block pb-1 border-b-2 text-sm font-bold uppercase tracking-wide transition-colors ${
+                  isActive
+                    ? "text-yellow-300 border-yellow-300"
+                    : "text-white border-transparent hover:text-yellow-200"
+                }`
+              }
             >
               {link.label}
-            </Link>
+            </NavLink>
           ))}
         </nav>
 
@@ -171,7 +176,6 @@ export default function Navbar({ darkMode, setDarkMode }: NavbarProps) {
             <span>6294220411</span>
           </a>
           <a
-          
             href="mailto:shushrushassn@gmail.com"
             className="flex items-center gap-1 text-sm font-semibold transition-colors"
             style={{ color: "#0f766e" }}
